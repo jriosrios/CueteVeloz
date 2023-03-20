@@ -19,7 +19,6 @@ def medidas(msg):
   global gir
   gir = msg.data
 """
-
 def lines(image):
   gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) #escala de grises
   blur = cv2.medianBlur(gray,5) #filtro para reduccion de ruido
