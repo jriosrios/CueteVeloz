@@ -11,6 +11,14 @@ from cv_bridge import CvBridge, CvBridgeError
 import matplotlib as plt
 
 bridge = CvBridge()
+file = open('dataset2.csv', 'w')
+
+#para la sub de extraer el valor del topic de direccion
+
+def medidas(msg):
+  global gir
+  gir = msg.data
+
 
 def lines(image):
   gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) #escala de grises
@@ -93,16 +101,8 @@ def callback(img):
       x2_R = 0
       y2_R = 0
     
-    gir = 0.00001557*(x1_L) - 0.0002931*(y1_L) - 0.00001961*(x2_L)  - 0.00008441*(x1_R)  - 0.00005383*(x2_R) + 0.2925 
-
-    if(gir>-1.1 and gir<1.1):
-      if(gir>-0.22):
-        dir.publish(gir-0.04)
-        vel.publish(60)
-      else:
-        dir.publish(gir)
-        print("bajo velocidad")
-        vel.publish(5)
+    #linea para el dataset
+    file.write(f"{x1_L},{y1_L},{x2_L},{y2_L},{x1_R},{y1_R},{x2_R},{y2_R},{gir}\n")
 
     cv2.line(gray, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)
     cv2.line(gray, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)
@@ -114,6 +114,7 @@ def callback(img):
 
 def main(args):
   rospy.init_node('image_converter', anonymous=True)
+  scan = rospy.Subscriber("/steering",Float64, medidas) #para extraer el giro del topic
   image_sub = rospy.Subscriber("/camera/rgb/raw", Image, callback)
     
   try:
