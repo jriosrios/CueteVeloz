@@ -85,6 +85,7 @@ def callback(img):
       mL = (LL[3]-LL[1])/(LL[2]-LL[0])
       if(mL<-0.1):    #filtro para pendientes muy horizontales
         bL = (LL[1])-(mL*(LL[0]))
+        #se extienden las lineas hasta los bordes de la imagen
         x1_L = int((349-bL)/mL)
         y1_L = 349
         x2_L = int((0-bL)/mL)
@@ -94,25 +95,29 @@ def callback(img):
         y1_L = 0
         x2_L = 0
         y2_L = 0
-    else:
+    else:   #si se divide entre 0 es 0
       x1_L = 0
       y1_L = 0
       x2_L = 0
       y2_L = 0
 
-    if(int(LR[2])-int(LR[0])!=0):
+    if(int(LR[2])-int(LR[0])!=0):   #condicion para evitar division entre 0
       mR = (LR[3]-LR[1])/(LR[2]-LR[0])
       bR = (LR[1])-(mR*(LR[0]))
-      
+      #se extienden las lineas hasta los bordes de la imagen
       x1_R = int((349-bR)/mR)
       y1_R = 349
       x2_R = int((0-bR)/mR)
       y2_R = 0
-    else:
+    else    :#si se divide entre 0 es 0
       x1_R = 0
       y1_R = 0
       x2_R = 0
       y2_R = 0
+
+    cv2.line(drawlines, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)    #dibja la linea izquierda extendida
+    cv2.line(drawlines, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)    #dibuja la linea derecha extendida
+    #                     x1    y1      x2    y2
     
     gir = 0.00001557*(x1_L) - 0.0002931*(y1_L) - 0.00001961*(x2_L)  - 0.00008441*(x1_R)  - 0.00005383*(x2_R) + 0.2925 # giro del carro obtenido de la regresion lineal
 
@@ -131,10 +136,6 @@ def callback(img):
       vel.publish(0)
       print("parar")
       sleep(10)
-
-    cv2.line(drawlines, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)
-    cv2.line(drawlines, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)
-    #                 x1    y1      x2    y2
   
   cv2.imshow("Image window", drawlines)
   cv2.waitKey(1)
