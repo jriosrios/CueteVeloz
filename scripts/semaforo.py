@@ -38,10 +38,10 @@ def signal_stop(image):
         if area > 2000:
           cv2.drawContours(signal, [cnt], 0, (0, 255, 0), 3)
           cv2.putText(signal, figure, (cnt[0][0][0], cnt[0][0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-          cir = 1
+          sw = 1
   cv2.imshow("signal", signal)
   cv2.waitKey(1)
-  return cir
+  return sw
 
 def callback(img):
   dir = rospy.Publisher('/steering', Float64,queue_size = 10) #publicador de direccion
@@ -49,7 +49,7 @@ def callback(img):
   
   #cv.image = bridge.cv2_to_imgmsg(img encoding="passthrough")    #carro fisico
   cv_image = bridge.imgmsg_to_cv2(img, "rgb8")                 #simulador
-  cir= signal_stop(cv_image)
+  sw = signal_stop(cv_image)
 
   image = cv_image[550:900,60:] #recorte de imagen
   drawlines = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -118,7 +118,7 @@ def callback(img):
     
     gir = 0.00001557*(x1_L) - 0.0002931*(y1_L) - 0.00001961*(x2_L)  - 0.00008441*(x1_R)  - 0.00005383*(x2_R) + 0.2925 
 
-    if(cir==0):
+    if(sw==0):
       if(gir>-1.1 and gir<1.1):
         if(gir>-0.22):
           dir.publish(gir-0.04)
