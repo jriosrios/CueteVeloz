@@ -8,7 +8,6 @@ import cv2
 from std_msgs.msg import Float64
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-import matplotlib as plt
 from time import sleep
 
 bridge = CvBridge()
@@ -27,32 +26,19 @@ def signal_stop(image):
   blur = cv2.medianBlur(gray,5) #filtro para reduccion de ruido
   _,thresh_signal = cv2.threshold(blur,125,255,cv2.THRESH_BINARY)
   contours,_ = cv2.findContours(thresh_signal, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-  var=()
+  var = ()
+  sw = 0
   if contours != var:
     for cnt in contours:
-      # Calcular aproximación poligonal del contorno
       approx = cv2.approxPolyDP(cnt, 0.01*cv2.arcLength(cnt, True), True)
-      # Obtener número de lados de la figura
-      lados = len(approx)
-      # Dibujar contorno y texto con la figura geométrica detectada
-
-
-      if lados == 14:
-        figura = "Figura con más de 6 lados"
+      sides = len(approx)
+      if sides > 14:
+        figure = "circulo"
         area = cv2.contourArea(cnt)
-
         if area > 2000:
-          figura = "Circulo"
           cv2.drawContours(signal, [cnt], 0, (0, 255, 0), 3)
-          print(lados)
-          cv2.putText(signal, figura, (cnt[0][0][0], cnt[0][0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+          cv2.putText(signal, figure, (cnt[0][0][0], cnt[0][0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
           cir = 1
-        else:
-          cir=0
-      else:
-        cir=0
-  else:
-    cir=0
   cv2.imshow("signal", signal)
   cv2.waitKey(1)
   return cir
@@ -63,13 +49,10 @@ def callback(img):
   
   #cv.image = bridge.cv2_to_imgmsg(img encoding="passthrough")    #carro fisico
   cv_image = bridge.imgmsg_to_cv2(img, "rgb8")                 #simulador
-  #color= cv2.cvtColor(cv_image,cv2.COLOR_BGR2RGB)
-  draw = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY) #escala de grises
-  
   cir= signal_stop(cv_image)
-  print(cir)
+
   image = cv_image[550:900,60:] #recorte de imagen
-  #draw = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) #escala de grises
+  drawlines = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
   linesP = lines(image) #obtencion de lineas
 
   linesL=[]#para guardar todas las lineas de la izquierda detectadas
@@ -151,12 +134,12 @@ def callback(img):
       print("parar")
       sleep(10)
 
-    #cv2.line(draw, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)
-    #cv2.line(draw, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)
+    cv2.line(drawlines, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)
+    cv2.line(drawlines, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)
     #                 x1    y1      x2    y2
   
-  #cv2.imshow("Image window", draw)
-  #cv2.waitKey(1)
+  cv2.imshow("Image window", drawlines)
+  cv2.waitKey(1)
 
 
 def main(args):
