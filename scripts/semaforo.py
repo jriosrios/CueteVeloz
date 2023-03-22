@@ -48,7 +48,8 @@ def callback(img):
   vel = rospy.Publisher('/speed', Float64,queue_size = 10)    #publicador de velocidad
   
   #cv.image = bridge.cv2_to_imgmsg(img encoding="passthrough")    #imagen para carro fisico
-  cv_image = bridge.imgmsg_to_cv2(img, "rgb8")    #imagen para simulador
+  cv_image = bridge.imgmsg_to_cv2(img, "rgb8")
+  
   sw = signal_stop(cv_image)
 
   image = cv_image[550:900,60:]   #recorte de imagen
