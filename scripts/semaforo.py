@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import print_function
 import numpy as np
-import roslib
 import sys
 import rospy
 import cv2
@@ -26,6 +25,7 @@ def signal_stop(image):
   blur = cv2.medianBlur(gray,5)   #filtro para reduccion de ruido
   _,thresh_signal = cv2.threshold(blur,125,255,cv2.THRESH_BINARY)   #umbral de binarizacion
   contours,_ = cv2.findContours(thresh_signal, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)    #deteccion de contornos
+  
   var = ()
   sw = 0
   if contours != var:
@@ -39,6 +39,7 @@ def signal_stop(image):
           cv2.drawContours(signal, [cnt], 0, (0, 255, 0), 3)
           cv2.putText(signal, figure, (cnt[0][0][0], cnt[0][0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
           sw = 1
+
   cv2.imshow("signal", signal)
   cv2.waitKey(1)
   return sw
