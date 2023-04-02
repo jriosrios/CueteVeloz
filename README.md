@@ -7,6 +7,7 @@ Ejecutar el algorithmo para la prueba de conduccion autonoma sin obstaculos ni s
 
 ## Prueba de conduccion autonoma con deteccion de señales de alto
 stopsign_steering_final.py
+
 stopsign_speed_final.py
 
 Ejecutar primero el script *stopsign_steering_final.py* e inmediatamente despues el scrpt *stopsign_speed_final.py*
