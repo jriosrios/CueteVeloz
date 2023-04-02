@@ -65,7 +65,7 @@ def callback_signal(img):
           vel.publish(50)
           
       if(gir > 0.16):
-          vel.publish(5)
+          vel.publish(1)
     else:
         print("stop")
         vel.publish(0)
