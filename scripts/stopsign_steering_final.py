@@ -92,16 +92,16 @@ def callback(img):
       x2_R = 0
       y2_R = 0
 
-    cv2.line(drawlines, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)    #dibja la linea izquierda extendida
-    cv2.line(drawlines, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)    #dibuja la linea derecha extendida
+    #cv2.line(drawlines, (x1_L, y1_L), (x2_L, y2_L), (255,255,255),3,cv2.LINE_AA)    #dibja la linea izquierda extendida
+    #cv2.line(drawlines, (x1_R, y1_R), (x2_R, y2_R), (  0,  0,255),3,cv2.LINE_AA)    #dibuja la linea derecha extendida
     #                     x1    y1      x2    y2
     
     gir = 0.00001557*(x1_L) - 0.0002931*(y1_L) - 0.00001961*(x2_L)  - 0.00008441*(x1_R)  - 0.00005383*(x2_R) + 0.2925 # giro del carro obtenido de la regresion lineal
     if(gir > -1.1 and gir < 1.1):
       dir.publish(gir-0.04)
   
-  cv2.imshow("Image window", drawlines)
-  cv2.waitKey(1)
+  #cv2.imshow("Image window", drawlines)
+  #cv2.waitKey(1)
 
 
 def main(args):

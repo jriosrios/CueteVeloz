@@ -22,7 +22,7 @@ def signal_stop(img):
     desc = 2
 
   gray = cv2.cvtColor(kurv, cv2.COLOR_BGR2GRAY)
-  cv2.imshow("semaforo", gray)
+  #cv2.imshow("semaforo", gray)
 
   stop_sign_scaled = stop_sign.detectMultiScale(gray, 1.3, 5)
   
@@ -71,7 +71,7 @@ def callback_signal(img):
         vel.publish(0)
         sleep(desc)
 
-    cv2.waitKey(1)
+    #cv2.waitKey(1)
 
 def medidas(msg):
   global gir
