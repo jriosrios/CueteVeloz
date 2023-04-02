@@ -19,7 +19,7 @@ def signal_stop(img):
     desc = 3
   else:
     kurv = img[300:450,800:950]
-    desc = 2
+    desc = 1
 
   gray = cv2.cvtColor(kurv, cv2.COLOR_BGR2GRAY)
   #cv2.imshow("semaforo", gray)
