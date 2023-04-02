@@ -34,7 +34,8 @@ def callback(img):
   if linesP is not None:    #si existe alguna linea entra en la condicion 
     for i in range(0, len(linesP)):
       l = linesP[i][0]    #selecciona una linea a la vez
-      m = (l[3]-l[1])/(l[2]-l[0])   #pendiente de las lineas
+      if(l[2]-l[0]!=0): 
+        m = (l[3]-l[1])/(l[2]-l[0])   #pendiente de las lineas
       
       if(m!=0):   #filtrar lineas completamente verticales
         if(m>0):    #si es positiva es linea izquierda
