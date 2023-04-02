@@ -16,10 +16,10 @@ def signal_stop(img):
   if(gir > 0.1):
     print("curva")
     kurv = img[:,:]
-    desc = 4
+    desc = 3
   else:
     kurv = img[300:450,800:950]
-    desc = 3
+    desc = 2
 
   gray = cv2.cvtColor(kurv, cv2.COLOR_BGR2GRAY)
   cv2.imshow("semaforo", gray)
