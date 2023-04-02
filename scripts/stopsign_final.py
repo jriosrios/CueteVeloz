@@ -10,11 +10,10 @@ from time import sleep
 
 bridge = CvBridge()
 
-"""
+
 def signal_stop(img):
   stop_sign = cv2.CascadeClassifier('/home/inda/Desktop/CueteVeloz/scripts/cascade_stop_sign.xml')
   signal = img[300:450,800:950]
-  cv2.imshow("signal", signal)
   gray = cv2.cvtColor(signal, cv2.COLOR_BGR2GRAY)
   cv2.imshow("semaforo", gray)
 
@@ -39,14 +38,12 @@ def signal_stop(img):
     sw = 0
 
   return sw
-"""
+
 
 def callback_signal(img):
     vel = rospy.Publisher('/speed', Float64,queue_size = 10)    #publicador de velocidad
 
     cv_image = bridge.imgmsg_to_cv2(img, "rgb8")
-    cv2.imshow("Image window", cv_image)
-    """
     sw = signal_stop(cv_image)
 
     if(sw == 0):  #switch para parar el carro
@@ -54,6 +51,8 @@ def callback_signal(img):
     else:
         vel.publish(0)
         sleep(3)
+
+    cv2.waitKey(1)
 
 def main(args):
   rospy.init_node('image_converter', anonymous=True)
