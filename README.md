@@ -11,7 +11,7 @@ stopsign_speed_final.py
 
 Ejecutar primero el script *stopsign_steering_final.py* e inmediatamente despues el scrpt *stopsign_speed_final.py*
 
-###Consideraciones para esta prueba
+### Consideraciones para esta prueba
 En el script *stopsign_speed_final.py* cambiar la ubicacion del archivo *cascade_stop_sign.xml*
 a donde se haya descargado el repositorio en su ordenador.
 
