@@ -16,10 +16,10 @@ def signal_stop(img):
   if(gir > 0.1):
     print("curva")
     kurv = img[:,:]
-    desc = 3
+    desc = 2
   else:
     kurv = img[300:450,800:950]
-    desc = 1
+    desc = 1.5
 
   gray = cv2.cvtColor(kurv, cv2.COLOR_BGR2GRAY)
   #cv2.imshow("semaforo", gray)
@@ -71,7 +71,7 @@ def callback_signal(img):
         vel.publish(0)
         sleep(desc)
 
-    #cv2.waitKey(1)
+    cv2.waitKey(1)
 
 def medidas(msg):
   global gir
