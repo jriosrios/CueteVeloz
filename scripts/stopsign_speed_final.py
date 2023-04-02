@@ -10,11 +10,9 @@ from time import sleep
 
 bridge = CvBridge()
 
-
 def signal_stop(img):
   stop_sign = cv2.CascadeClassifier('/home/inda/Desktop/CueteVeloz/scripts/cascade_stop_sign.xml')
 
-  
   if(gir > 0.1):
     print("curva")
     kurv = img[:,:]
