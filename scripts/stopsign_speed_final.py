@@ -16,10 +16,10 @@ def signal_stop(img):
   if(gir > 0.1):
     print("curva")
     kurv = img[:,:]
-    desc = 2
+    desc = 2.5
   else:
     kurv = img[300:450,800:950]
-    desc = 1.5
+    desc = 2
 
   gray = cv2.cvtColor(kurv, cv2.COLOR_BGR2GRAY)
   #cv2.imshow("semaforo", gray)
@@ -62,7 +62,7 @@ def callback_signal(img):
     if(sw == 0):  #switch para parar el carro
         
       if(gir > -0.22):
-          vel.publish(40)
+          vel.publish(50)
           
       if(gir > 0.16):
           vel.publish(5)
