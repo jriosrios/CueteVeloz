@@ -97,7 +97,8 @@ def callback(img):
     #                     x1    y1      x2    y2
     
     gir = 0.00001557*(x1_L) - 0.0002931*(y1_L) - 0.00001961*(x2_L)  - 0.00008441*(x1_R)  - 0.00005383*(x2_R) + 0.2925 # giro del carro obtenido de la regresion lineal
-    dir.publish(gir-0.04)
+    if(gir > -1.1 and gir < 1.1):
+      dir.publish(gir-0.04)
   
   cv2.imshow("Image window", drawlines)
   cv2.waitKey(1)
