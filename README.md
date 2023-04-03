@@ -1,4 +1,5 @@
 # CueteVeloz Team
+Este repositorio muestra distintos algorithmos de conduccion autonoma para las siguientes modalidades.
 
 ## Prueba de conduccion autonoma sin obstaculos
 autonomous_final.py
