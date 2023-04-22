@@ -28,6 +28,8 @@ def callback(img):
   #cv.image = bridge.cv2_to_imgmsg(img encoding="passthrough")    #carro fisico
   cv_image = bridge.imgmsg_to_cv2(img, "rgb8")                    #simulador
   image = cv_image[550:900,60:] #recorte de imagen
+  cv2.imwrite("1.png", image) #guardar imagen
+  print(image.shape)
   gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY) #para dibujar las lineas obtenidas
   
   linesP = lines(image) #obtencion de lineas
