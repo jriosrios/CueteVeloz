@@ -20,11 +20,13 @@ def get_image():
     
     while not rospy.is_shutdown():
         ret, frame = cap.read()
+        """
         alto, ancho = frame.shape[:2]
         factor = 2
         n_alto = alto*factor
         n_ancho = ancho*factor
         frame = cv.resize(frame, (n_ancho, n_alto), interpolation=cv.INTER_CUBIC)
+        """
         frame = np.asarray(frame)
         image_message1 = bridge.cv2_to_imgmsg(frame, encoding="passthrough")
         pub1.publish(image_message1)
